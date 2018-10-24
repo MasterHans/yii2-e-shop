@@ -2,8 +2,9 @@
 
 /* @var $this yii\web\View */
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
-$this->title = 'My Yii Application';
 ?>
 <section id="advertisement">
     <div class="container">
@@ -61,7 +62,7 @@ $this->title = 'My Yii Application';
 
                 <?php if (!empty($products)): ?>
                     <div class="features_items"><!--features_items-->
-                        <h2 class="title text-center">Features Items</h2>
+                        <h2 class="title text-center"><?= $category->name; ?></h2>
                         <?php $i = 0;
                         foreach ($products as $product) : ?>
                             <div class="col-sm-4">
@@ -73,7 +74,7 @@ $this->title = 'My Yii Application';
 
                                             <h2>$<?= $product->price ?></h2>
 
-                                            <p><?= $product->name ?></p>
+                                            <p><a href="<?= Url::to(['product/view', 'id' => $product->id]) ?>"><?= $product->name ?></a></p>
                                             <a href="#" class="btn btn-default add-to-cart"><i
                                                     class="fa fa-shopping-cart"></i>Add
                                                 to cart</a>
@@ -95,25 +96,32 @@ $this->title = 'My Yii Application';
                                     </div>
                                 </div>
                             </div>
-                            <?php $i+=1?>
-                            <?php if($i % 3 == 0):?>
+                            <?php $i += 1 ?>
+                            <?php if ($i % 3 == 0): ?>
                                 <div class="clearfix"></div>
-                            <?php endif;?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
+                    <div class="clearfix"></div>
+                    <!--                 display pagination-->
+                    <?php echo LinkPager::widget([
+                        'pagination' => $pages,
+                    ]); ?>
+
                 <?php else: ?>
                     <h2>Здесь пока нет товаров</h2>
                 <?php endif; ?>
                 <!--features_items-->
 
-                <div class="clearfix"></div>
 
-                <ul class="pagination">
-                    <li class="active"><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="">&raquo;</a></li>
-                </ul>
+                <!--                <ul class="pagination">-->
+                <!--                    <li class="active"><a href="">1</a></li>-->
+                <!--                    <li><a href="">2</a></li>-->
+                <!--                    <li><a href="">3</a></li>-->
+                <!--                    <li><a href="">&raquo;</a></li>-->
+                <!--                </ul>-->
+
+
             </div>
             <!--features_items-->
         </div>
